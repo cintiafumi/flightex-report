@@ -1,5 +1,5 @@
 defmodule Flightex.Users.User do
-  @keys [:name, :email, :cpf]
+  @keys [:name, :email, :cpf, :id]
   @enforce_keys @keys
   defstruct @keys
 
@@ -7,7 +7,8 @@ defmodule Flightex.Users.User do
     %__MODULE__{
       name: name,
       email: email,
-      cpf: cpf
+      cpf: cpf,
+      id: UUID.uuid4()
     }
   end
 
