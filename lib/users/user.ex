@@ -13,5 +13,6 @@ defmodule Flightex.Users.User do
      }}
   end
 
+  def build(_name, _email, cpf) when is_integer(cpf), do: {:error, "Cpf must be a String"}
   def build(_name, _email, _cpf), do: {:error, "Invalid parameters."}
 end
