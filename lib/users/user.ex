@@ -4,12 +4,12 @@ defmodule Flightex.Users.User do
   defstruct @keys
 
   def build(name, email, cpf) when is_bitstring(cpf) do
-    %__MODULE__{
+    {:ok, %__MODULE__{
       name: name,
       email: email,
       cpf: cpf,
       id: UUID.uuid4()
-    }
+    }}
   end
 
   def build(_name, _email, _cpf), do: {:error, "Invalid parameters."}
