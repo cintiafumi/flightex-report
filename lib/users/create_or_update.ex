@@ -1,5 +1,6 @@
 defmodule Flightex.Users.CreateOrUpdate do
-  alias Flightex.Users.{User, UserAgent}
+  alias Flightex.Users.Agent, as: UserAgent
+  alias Flightex.Users.User
 
   def call(%{name: name, email: email, cpf: cpf}) do
     name
