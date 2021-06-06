@@ -12,5 +12,5 @@ defmodule Flightex do
 
   defdelegate create_or_update_booking(params), to: CreateOrUpdateBookings, as: :call
   defdelegate create_or_update_user(params), to: CreateOrUpdateUser, as: :call
-  defdelegate generate_report(from_date, to_date), to: Report, as: :generate_report
+  defdelegate generate_report(from_date, to_date, filename), to: Report, as: :generate_date_report
 end

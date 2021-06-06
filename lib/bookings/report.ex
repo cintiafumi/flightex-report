@@ -2,14 +2,20 @@ defmodule Flightex.Bookings.Report do
   alias Flightex.Bookings.Agent, as: BookingAgent
   alias Flightex.Bookings.Booking
 
-  def generate_report(from_date, to_date, filename \\ "report.csv") do
-    booking_list = build_booking_list(from_date, to_date)
+  def generate(filename \\ "report.csv") do
+    booking_list = build_booking_list()
+
+    File.write(filename, booking_list)
+  end
+
+  def generate_date_report(from_date, to_date, filename \\ "report.csv") do
+    booking_list = build_booking_list_date_range(from_date, to_date)
 
     File.write(filename, booking_list)
     {:ok, "Report generated successfully"}
   end
 
-  defp build_booking_list(from_date, to_date) do
+  defp build_booking_list_date_range(from_date, to_date) do
     BookingAgent.get_all()
     |> Map.values()
     |> Stream.filter(&compare_dates(&1, from_date, to_date))
@@ -21,6 +27,12 @@ defmodule Flightex.Bookings.Report do
     end_date = NaiveDateTime.compare(complete_date, to_date)
 
     (begin_date == :gt or begin_date == :eq) and (end_date == :lt or end_date == :eq)
+  end
+
+  defp build_booking_list do
+    BookingAgent.get_all()
+    |> Map.values()
+    |> Enum.map(&booking_string(&1))
   end
 
   defp booking_string(%Booking{
