@@ -26,7 +26,7 @@ defmodule Flightex.Bookings.Report do
     begin_date = NaiveDateTime.compare(complete_date, from_date)
     end_date = NaiveDateTime.compare(complete_date, to_date)
 
-    (begin_date == :gt or begin_date == :eq) and (end_date == :lt or end_date == :eq)
+    begin_date != :lt and end_date != :gt
   end
 
   defp build_booking_list do
